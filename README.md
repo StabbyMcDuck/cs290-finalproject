@@ -1,5 +1,12 @@
 #
 
+## Users
+
+```mysql
+CREATE USER 'final_project'@'localhost' IDENTIFIED BY '<PASSWORD>';
+GRANT ALL PRIVILEGES ON *.* TO 'final_project'@'localhost';
+```
+
 ## Tables
 
 ```mysql

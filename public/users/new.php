@@ -26,7 +26,7 @@
                       $('#form-errors').html(xhr.responseJSON.message);
                   },
                   success: function(responseJSON, statusText, xhr, formElement) {
-                      debugger;
+                      $(location).attr('href','../session/new.php');
                   }
               };
               $('#form').ajaxForm(options);
