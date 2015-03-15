@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
     if ($email === null) {
+        http_response_code(400);
         header('Content-type: application/json');
         $response_array = array(
             'status' => 'error',
@@ -18,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         echo json_encode($response_array);
     } elseif ($email === false) {
+        http_response_code(400);
         header('Content-type: application/json');
         $response_array = array(
             'status' => 'error',
@@ -28,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = filter_input(INPUT_POST, 'password', FILTER_DEFAULT);
 
         if($password === null){
+            http_response_code(400);
             header('Content-type: application/json');
             $response_array = array(
                 'status' => 'error',
@@ -48,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             if ($connection->connect_error) {
+                http_response_code(500);
                 header('Content-type: application/json');
                 $response_array = array(
                     'status' => 'error',
@@ -58,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (!($statement = $connection->prepare("INSERT INTO users(email, password) VALUES(?,?) "))) {
+                http_response_code(500);
                 header('Content-type: application/json');
                 $response_array = array(
                     'status' => 'error',
@@ -83,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             if (!$statement->execute()) {
                 if ($statement->errno == 1062) {
+                    http_response_code(409);
                     header('Content-type: application/json');
                     $response_array = array(
                         'status' => 'error',
@@ -91,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     echo json_encode($response_array);
                     exit;
                 } else {
+                    http_response_code(500);
                     header('Content-type: application/json');
                     $response_array = array(
                         'status' => 'error',
