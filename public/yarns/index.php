@@ -31,9 +31,8 @@ if(!isset($_SESSION['id'])){
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-
 <body>
+<a href="../session/destroy.php">Logout</a>
 
-hihihi
 </body>
 </html>
