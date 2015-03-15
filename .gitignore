@@ -1,2 +1,4 @@
 # Ignore PHPStorm project files
 /.idea
+# Ignore database secrets
+configuration.php
