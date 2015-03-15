@@ -22,8 +22,8 @@
           // wait for the DOM to be loaded
           $(document).ready(function() {
               var options = {
-                  error: function(xhr, statusText, xhr, errorThrown) {
-                      debugger;
+                  error: function(xhr, statusText, errorThrown) {
+                      $('#form-errors').html(xhr.responseJSON.message);
                   },
                   success: function(responseJSON, statusText, xhr, formElement) {
                       debugger;
@@ -46,9 +46,14 @@
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Create user</button>
-      </form>
 
+          <p id="form-errors">
+
+          </p>
+      </form>
     </div> <!-- /container -->
+
+
 
   </body>
 </html>
