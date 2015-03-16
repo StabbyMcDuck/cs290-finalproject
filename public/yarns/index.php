@@ -30,24 +30,27 @@ if (!isset($_SESSION['id'])) {
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="../css/navbar-fixed-top.css" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
 
     <script>
         // wait for the DOM to be loaded
-        $(document).ready(function() {
+        $(document).ready(function () {
             var options = {
-                error: function(xhr, statusText, errorThrown) {
+                error: function (xhr, statusText, errorThrown) {
                     alert(xhr.responseJSON.message);
                 },
-                success: function(responseJSON, statusText, xhr, formElement) {
+                success: function (responseJSON, statusText, xhr, formElement) {
                     var tr = $('#yarn-' + responseJSON.id);
 
                     // see http://stackoverflow.com/a/15604153
 
                     //change the background color to red before removing
-                    tr.css("background-color","#FF3700");
-                    tr.fadeOut(400, function(){
+                    tr.css("background-color", "#FF3700");
+                    tr.fadeOut(400, function () {
                         tr.remove();
                     });
                     return false;
@@ -58,9 +61,28 @@ if (!isset($_SESSION['id'])) {
     </script>
 </head>
 <body>
-<a href="new.php">Add Yarn</a>
-|
-<a href="../session/destroy.php">Logout</a>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Yarn Inventory</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="new.php">Add Yarn</a></li>
+                <li><a href="../session/destroy.php">Logout</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
 
 <?php
 include '../../configuration.php';
@@ -131,76 +153,77 @@ if (!$statement->bind_result($out_id, $out_email, $out_manufacturer, $out_name, 
 }
 ?>
 
-<table class="table-bordered table-hover">
-    <thead>
-    <tr>
-        <th>
-            Purchaser
-        </th>
-        <th colspan="6">
-            Yarn
-        </th>
-        <th colspan="2">
-            Actions
-        </th>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <th>Manufacturer</th>
-        <th>Name</th>
-        <th>Colorway</th>
-        <th>Purchased Date</th>
-        <th>Weight</th>
-        <th>Private</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    while ($statement->fetch()) {
-?>
-        <tr id="yarn-<?php echo $out_id ?>">
-            <td>
-            <?php echo $out_email ?>
-            </td>
-            <td>
-                <?php echo $out_manufacturer ?>
-            </td>
-            <td>
-                <?php echo $out_name ?>
-            </td>
-            <td>
-                <?php echo $out_colorway ?>
-            </td>
-            <td>
-                <?php echo $out_purchased ?>
-            </td>
-            <td>
-                <?php echo $out_weight ?>
-            </td>
-            <td>
-                <?php echo $out_private ?>
-            </td>
-            <td>
-                <form action="edit.php" class="edit" method="get">
-                    <input type="hidden" name="id" value="<?php echo $out_id ?>">
-                    <button class="btn btn-sm" type="submit">Edit</button>
-                </form>
-            </td>
-            <td>
-                <form action="destroy.php" class="delete" method="post">
-                    <input type="hidden" name="id" value="<?php echo $out_id ?>">
-                    <button class="btn btn-sm" type="submit">Delete</button>
-                </form>
-            </td>
+<div class="container">
+    <table class="jumbotron table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>
+                Purchaser
+            </th>
+            <th colspan="6">
+                Yarn
+            </th>
+            <th colspan="2">
+                Actions
+            </th>
         </tr>
+        <tr>
+            <th>Email</th>
+            <th>Manufacturer</th>
+            <th>Name</th>
+            <th>Colorway</th>
+            <th>Purchased Date</th>
+            <th>Weight</th>
+            <th>Private</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        while ($statement->fetch()) {
+            ?>
+            <tr id="yarn-<?php echo $out_id ?>">
+                <td>
+                    <?php echo $out_email ?>
+                </td>
+                <td>
+                    <?php echo $out_manufacturer ?>
+                </td>
+                <td>
+                    <?php echo $out_name ?>
+                </td>
+                <td>
+                    <?php echo $out_colorway ?>
+                </td>
+                <td>
+                    <?php echo $out_purchased ?>
+                </td>
+                <td>
+                    <?php echo $out_weight ?>
+                </td>
+                <td>
+                    <?php echo $out_private ?>
+                </td>
+                <td>
+                    <form action="edit.php" class="edit" method="get">
+                        <input type="hidden" name="id" value="<?php echo $out_id ?>">
+                        <button class="btn btn-sm" type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="destroy.php" class="delete" method="post">
+                        <input type="hidden" name="id" value="<?php echo $out_id ?>">
+                        <button class="btn btn-sm" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
 
-    <?php
-    }
-    ?>
-    </tbody>
-</table>
-
+        <?php
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
