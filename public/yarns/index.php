@@ -97,6 +97,7 @@ $connection = new mysqli(
 
 if (!($statement = $connection->prepare(
     "SELECT yarns.id, " .
+    "purchasers.id, " .
     "purchasers.email, " .
     "yarns.manufacturer, " .
     "yarns.name, " .
@@ -135,6 +136,7 @@ if (!$statement->execute()) {
     exit;
 }
 
+$out_purchaser_id = null;
 $out_id = null;
 $out_email = null;
 $out_manufacturer = null;
@@ -144,7 +146,7 @@ $out_purchased = null;
 $out_weight = null;
 $out_private = null;
 
-if (!$statement->bind_result($out_id, $out_email, $out_manufacturer, $out_name, $out_colorway, $out_purchased, $out_weight, $out_private)) {
+if (!$statement->bind_result($out_id, $out_purchaser_id, $out_email, $out_manufacturer, $out_name, $out_colorway, $out_purchased, $out_weight, $out_private)) {
     error_log($statement->error);
     ?>
     <p>Try again later (4)</p>
@@ -212,16 +214,30 @@ if (!$statement->bind_result($out_id, $out_email, $out_manufacturer, $out_name, 
                     } ?>
                 </td>
                 <td>
-                    <form action="edit.php" class="edit" method="get">
-                        <input type="hidden" name="id" value="<?php echo $out_id ?>">
-                        <button class="btn btn-sm" type="submit">Edit</button>
-                    </form>
+                    <?php
+                    if($out_purchaser_id == $_SESSION["id"]) {
+
+                        ?>
+                        <form action="edit.php" class="edit" method="get">
+                            <input type="hidden" name="id" value="<?php echo $out_id ?>">
+                            <button class="btn btn-sm" type="submit">Edit</button>
+                        </form>
+                    <?php
+                    }
+                    ?>
                 </td>
                 <td>
+                    <?php
+                    if($out_purchaser_id == $_SESSION["id"]) {
+
+                    ?>
                     <form action="destroy.php" class="delete" method="post">
                         <input type="hidden" name="id" value="<?php echo $out_id ?>">
                         <button class="btn btn-sm" type="submit">Delete</button>
                     </form>
+                    <?php
+                    }
+                    ?>
                 </td>
             </tr>
 
