@@ -32,6 +32,8 @@ if(!isset($_SESSION['id'])){
 
 </head>
 <body>
+<a href="new.php">Add Yarn</a>
+|
 <a href="../session/destroy.php">Logout</a>
 
 </body>
