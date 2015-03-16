@@ -203,7 +203,13 @@ if (!$statement->bind_result($out_id, $out_email, $out_manufacturer, $out_name, 
                     <?php echo $out_weight ?>
                 </td>
                 <td>
-                    <?php echo $out_private ?>
+
+                    <?php
+                    if($out_private == 0){
+                        echo "public";
+                    }else{
+                        echo "private";
+                    } ?>
                 </td>
                 <td>
                     <form action="edit.php" class="edit" method="get">
