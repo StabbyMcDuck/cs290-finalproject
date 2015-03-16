@@ -49,6 +49,7 @@
 
         </p>
     </form>
+    <p class="form-signin">Don't have an account? <a href="../users/new.php">Create User</a></p>
 
 </div> <!-- /container -->
 

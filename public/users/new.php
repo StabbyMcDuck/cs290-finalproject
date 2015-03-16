@@ -51,6 +51,8 @@
 
           </p>
       </form>
+        <p class="form-signin">Already have an account? <a href="../session/new.php">Login</a></p>
+
     </div> <!-- /container -->
 
 
