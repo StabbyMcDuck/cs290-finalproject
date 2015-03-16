@@ -183,6 +183,10 @@ if (!$statement->bind_result($out_id, $out_email, $out_manufacturer, $out_name, 
                 <?php echo $out_private ?>
             </td>
             <td>
+                <form action="edit.php" class="edit" method="get">
+                    <input type="hidden" name="id" value="<?php echo $out_id ?>">
+                    <button class="btn btn-sm" type="submit">Edit</button>
+                </form>
             </td>
             <td>
                 <form action="destroy.php" class="delete" method="post">
