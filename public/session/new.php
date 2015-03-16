@@ -23,7 +23,6 @@
         $(document).ready(function() {
             var options = {
                 error: function(xhr, statusText, errorThrown) {
-                    debugger;
                     $('#form-errors').html(xhr.responseJSON.message);
                 },
                 success: function(responseJSON, statusText, xhr, formElement) {
